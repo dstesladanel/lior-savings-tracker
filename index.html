@@ -162,10 +162,52 @@
   .hero-numbers {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     flex-wrap: wrap;
     gap: 10px 20px;
     margin-bottom: 18px;
+  }
+
+  .pct-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .pct-ring {
+    position: relative;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) var(--pct, 0%), var(--surface-2) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pct-ring::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: var(--surface);
+  }
+
+  .pct-ring span {
+    position: relative;
+    z-index: 1;
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .pct-block .label {
+    font-size: 11px;
+    color: var(--ink-dim);
+    font-weight: 700;
+    letter-spacing: 0.03em;
   }
 
   .saved-block .label,
@@ -449,6 +491,10 @@
         <div class="label">נחסך עד עכשיו</div>
         <div class="value" id="savedValue">0 ₪</div>
       </div>
+      <div class="pct-block">
+        <div class="pct-ring" id="pctRing"><span id="pctValue">0%</span></div>
+        <div class="label">מהיעד</div>
+      </div>
       <div class="goal-block">
         <div class="label">היעד</div>
         <div class="value" id="goalValue">1,500 ₪</div>
@@ -560,6 +606,8 @@
     document.getElementById("goalLabelEnd").textContent = shekel(GOAL);
     document.getElementById("roadFill").style.setProperty("--pct", pct + "%");
     document.getElementById("roadMarker").style.setProperty("--pct", pct + "%");
+    document.getElementById("pctRing").style.setProperty("--pct", pct + "%");
+    document.getElementById("pctValue").textContent = pct + "%";
 
     document.getElementById("choreSum").textContent = shekel(choreSum);
     document.getElementById("choreCount").textContent = choreCount + " מטלות · 5 ₪ למטלה";
